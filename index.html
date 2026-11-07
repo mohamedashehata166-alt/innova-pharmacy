@@ -24,11 +24,42 @@ header {
     color: white;
     padding: 30px 15px;
     text-align: center;
+    position: relative;
 }
 
 header h1 {
     font-size: 30px;
     margin-bottom: 10px;
+}
+
+.auth-area {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    direction: rtl;
+}
+
+.auth-btn {
+    background: white;
+    color: #0b7a75;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.auth-btn:hover {
+    background: #e7f5f4;
+    color: #075e59;
+}
+
+.user-name {
+    font-size: 13px;
+    color: white;
 }
 
 .menu-btn {
@@ -105,9 +136,14 @@ header h1 {
     display: block;
 }
 
+/* البحث والفلتر واللغة */
 .search {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     margin: 25px 15px;
+    direction: rtl;
 }
 
 .search input {
@@ -117,6 +153,28 @@ header h1 {
     border: 1px solid #ccc;
     border-radius: 12px;
     font-size: 16px;
+    outline-color: #0b7a75;
+}
+
+.filter-select,
+.language-select {
+    padding: 14px 12px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background: white;
+    color: #0b7a75;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    outline-color: #0b7a75;
+}
+
+.filter-select {
+    min-width: 145px;
+}
+
+.language-select {
+    min-width: 105px;
 }
 
 .section-title {
@@ -255,6 +313,92 @@ footer {
     color: #777;
 }
 
+/* تسجيل الدخول */
+.auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.auth-overlay.show {
+    display: flex;
+}
+
+.auth-modal {
+    background: white;
+    width: 100%;
+    max-width: 390px;
+    padding: 28px 22px;
+    border-radius: 16px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 5px 25px #0003;
+}
+
+.auth-modal h2 {
+    color: #0b7a75;
+    margin-bottom: 10px;
+}
+
+.auth-modal p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.auth-close {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #eee;
+    color: #333;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+.auth-modal input {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    font-size: 15px;
+    outline-color: #0b7a75;
+}
+
+.auth-submit {
+    width: 100%;
+    padding: 13px;
+    margin-top: 5px;
+}
+
+.auth-switch {
+    background: transparent;
+    color: #0b7a75;
+    margin-top: 12px;
+    padding: 8px;
+}
+
+.auth-switch:hover {
+    background: #eef8f7;
+}
+
+.auth-message {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #0b7a75;
+    line-height: 1.6;
+}
+
 @media(max-width:600px) {
     .products {
         grid-template-columns: repeat(2, minmax(0,1fr));
@@ -273,105 +417,391 @@ footer {
     .product-icon {
         font-size: 38px;
     }
+
+    header {
+        padding: 75px 15px 25px;
+    }
+
+    .auth-area {
+        top: 15px;
+        left: 15px;
+    }
+
+    .user-name {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .search {
+        gap: 6px;
+        margin: 20px 8px;
+    }
+
+    .search input {
+        width: auto;
+        min-width: 0;
+        flex: 1;
+        padding: 13px 7px;
+        font-size: 13px;
+    }
+
+    .filter-select {
+        min-width: 105px;
+        max-width: 125px;
+        padding: 13px 5px;
+        font-size: 11px;
+    }
+
+    .language-select {
+        min-width: 75px;
+        padding: 13px 4px;
+        font-size: 11px;
+    }
 }
+
+/* الاتجاه الإنجليزي */
+html[dir="ltr"] .sidebar {
+    right: auto;
+    left: -290px;
+}
+
+html[dir="ltr"] .sidebar.open {
+    left: 0;
+}
+
+html[dir="ltr"] .sidebar button {
+    text-align: left;
+}
+
+html[dir="ltr"] .sidebar h2 {
+    direction: ltr;
+}
+
+html[dir="ltr"] .search {
+    direction: ltr;
+}
+
+html[dir="ltr"] #cartItems {
+    padding-right: 0;
+    padding-left: 20px;
+}
+
+html[dir="ltr"] .cart {
+    left: auto;
+    right: 15px;
+}
+
+html[dir="ltr"] .auth-area {
+    direction: ltr;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- زر الثلاث نقاط -->
 <button class="menu-btn" onclick="openMenu()">⋮</button>
 
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<!-- القائمة الجانبية -->
 <div class="sidebar" id="sidebar">
 
     <h2>💊 Innova Pharmacy</h2>
 
-    <button class="active" onclick="showCategory('all',this)">
-        🛍️ كل المنتجات
-    </button>
+    <button class="active" data-category="all" onclick="showCategory('all',this)">🛍️ كل المنتجات</button>
+    <button data-category="medicine" onclick="showCategory('medicine',this)">💊 الأدوية</button>
+    <button data-category="vitamins" onclick="showCategory('vitamins',this)">💪 الفيتامينات</button>
+    <button data-category="devices" onclick="showCategory('devices',this)">💉 الأجهزة الطبية</button>
+    <button data-category="care" onclick="showCategory('care',this)">🧴 العناية الشخصية</button>
+    <button data-category="kids" onclick="showCategory('kids',this)">👶 الأطفال</button>
 
-    <button onclick="showCategory('medicine',this)">
-        💊 الأدوية
-    </button>
-
-    <button onclick="showCategory('vitamins',this)">
-        💪 الفيتامينات
-    </button>
-
-    <button onclick="showCategory('devices',this)">
-        💉 الأجهزة الطبية
-    </button>
-
-    <button onclick="showCategory('care',this)">
-        🧴 العناية الشخصية
-    </button>
-
-    <button onclick="showCategory('kids',this)">
-        👶 الأطفال
-    </button>
-
-    <button class="close-menu" onclick="closeMenu()">
-        إغلاق القائمة ✖
-    </button>
+    <button class="close-menu" id="closeMenuBtn" onclick="closeMenu()">إغلاق القائمة ✖</button>
 
 </div>
 
 <header>
+
+    <div class="auth-area">
+        <button class="auth-btn" id="authButton" onclick="openAuth()">تسجيل الدخول</button>
+        <span class="user-name" id="userName"></span>
+    </div>
+
     <h1>💊 Innova Pharmacy</h1>
-    <p>صحتك تهمنا - اطلب منتجاتك بسهولة</p>
+    <p id="headerSubtitle">صحتك تهمنا - اطلب منتجاتك بسهولة</p>
 </header>
 
+<!-- البحث والفلتر وتغيير اللغة -->
 <div class="search">
-    <input
-        type="text"
-        id="search"
-        placeholder="🔍 ابحث عن اسم المنتج..."
-    >
+
+    <input type="text" id="search" placeholder="🔍 ابحث عن اسم المنتج...">
+
+    <select id="sortFilter" class="filter-select" aria-label="ترتيب المنتجات">
+        <option value="default">⚙️ ترتيب المنتجات</option>
+        <option value="priceLow">💰 السعر: الأقل أولاً</option>
+        <option value="priceHigh">💰 السعر: الأعلى أولاً</option>
+        <option value="nameAZ">🔤 الاسم: أ - ي</option>
+        <option value="nameZA">🔤 الاسم: ي - أ</option>
+    </select>
+
+    <!-- زر اللغة في الشمال -->
+    <select id="languageSelect" class="language-select" onchange="changeLanguage(this.value)">
+        <option value="ar">🇸🇦 عربي</option>
+        <option value="en">🇬🇧 English</option>
+    </select>
+
 </div>
 
-<h2 class="section-title" id="categoryTitle">
-    🛍️ جميع المنتجات
-</h2>
+<h2 class="section-title" id="categoryTitle">🛍️ جميع المنتجات</h2>
 
 <div class="products" id="products"></div>
 
-<!-- السلة -->
-<div class="cart">
-    🛒 السلة:
+<div class="cart" id="cart">
+    <span id="cartLabel">🛒 السلة:</span>
     <span id="cartCount">0</span>
     <br><br>
-    <button onclick="openCart()">عرض السلة</button>
+    <button id="viewCartBtn" onclick="openCart()">عرض السلة</button>
 </div>
 
 <div id="cartBox">
 
-    <h2>🛒 سلة المشتريات</h2>
+    <h2 id="cartTitle">🛒 سلة المشتريات</h2>
 
     <ul id="cartItems"></ul>
 
     <h3>
-        الإجمالي:
+        <span id="totalLabel">الإجمالي:</span>
         <span id="total">0</span> ﷼
     </h3>
 
     <div class="cart-actions">
-        <button onclick="checkout()">📱 طلب عبر واتساب</button>
-        <button onclick="closeCart()">إغلاق</button>
+        <button id="checkoutBtn" onclick="checkout()">📱 طلب عبر واتساب</button>
+        <button id="closeCartBtn" onclick="closeCart()">إغلاق</button>
     </div>
 
 </div>
 
+<div class="auth-overlay" id="authOverlay" onclick="closeAuthOutside(event)">
+    <div class="auth-modal">
+
+        <button class="auth-close" onclick="closeAuth()">✕</button>
+
+        <h2 id="authTitle">تسجيل الدخول</h2>
+        <p id="authWelcome">أهلاً بك في Innova Pharmacy 💚</p>
+
+        <form id="authForm" onsubmit="handleAuth(event)">
+
+            <input type="text" id="authName" placeholder="الاسم" style="display:none">
+
+            <input type="email" id="authEmail" placeholder="البريد الإلكتروني" required>
+
+            <input type="password" id="authPassword" placeholder="كلمة المرور" minlength="4" required>
+
+            <button type="submit" class="auth-submit" id="authSubmit">دخول</button>
+
+        </form>
+
+        <button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">
+            ليس لديك حساب؟ إنشاء حساب
+        </button>
+
+        <div class="auth-message" id="authMessage"></div>
+
+    </div>
+</div>
+
 <footer>
     <h2>💊 Innova Pharmacy</h2>
-    <p>شكراً لزيارتكم ❤️</p>
+    <p id="footerThanks">شكراً لزيارتكم ❤️</p>
     <br>
-    <p>صحتك أولويتنا</p>
+    <p id="footerPriority">صحتك أولويتنا</p>
 </footer>
 
 <script>
+
+// ==================================
+// اللغة والترجمة
+// ==================================
+
+let currentLanguage = localStorage.getItem("innovaLanguage") || "ar";
+
+const translations = {
+
+    ar: {
+        subtitle: "صحتك تهمنا - اطلب منتجاتك بسهولة",
+        login: "تسجيل الدخول",
+        logout: "تسجيل الخروج",
+        all: "🛍️ كل المنتجات",
+        medicine: "💊 الأدوية",
+        vitamins: "💪 الفيتامينات",
+        devices: "💉 الأجهزة الطبية",
+        care: "🧴 العناية الشخصية",
+        kids: "👶 الأطفال",
+        closeMenu: "إغلاق القائمة ✖",
+        search: "🔍 ابحث عن اسم المنتج...",
+        sort: "⚙️ ترتيب المنتجات",
+        low: "💰 السعر: الأقل أولاً",
+        high: "💰 السعر: الأعلى أولاً",
+        az: "🔤 الاسم: أ - ي",
+        za: "🔤 الاسم: ي - أ",
+        allTitle: "🛍️ جميع المنتجات",
+        medicineTitle: "💊 الأدوية",
+        vitaminsTitle: "💪 الفيتامينات",
+        devicesTitle: "💉 الأجهزة الطبية",
+        careTitle: "🧴 العناية الشخصية",
+        kidsTitle: "👶 منتجات الأطفال",
+        noProducts: "لا توجد منتجات بهذا الاسم 😔",
+        productDescription: "منتج من Innova Pharmacy",
+        add: "أضف للسلة 🛒",
+        cart: "🛒 السلة:",
+        viewCart: "عرض السلة",
+        cartTitle: "🛒 سلة المشتريات",
+        empty: "السلة فارغة",
+        total: "الإجمالي:",
+        price: "السعر:",
+        quantity: "الكمية:",
+        delete: "حذف",
+        checkout: "📱 طلب عبر واتساب",
+        close: "إغلاق",
+        authWelcome: "أهلاً بك في Innova Pharmacy 💚",
+        registerTitle: "إنشاء حساب جديد",
+        register: "إنشاء الحساب",
+        enter: "دخول",
+        name: "الاسم",
+        email: "البريد الإلكتروني",
+        password: "كلمة المرور",
+        switchRegister: "ليس لديك حساب؟ إنشاء حساب",
+        switchLogin: "لديك حساب بالفعل؟ تسجيل الدخول",
+        thanks: "شكراً لزيارتكم ❤️",
+        priority: "صحتك أولويتنا",
+        writeName: "من فضلك اكتب اسمك.",
+        emailExists: "هذا البريد الإلكتروني مسجل بالفعل.",
+        wrongLogin: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        emptyCartAlert: "السلة فارغة",
+        hello: "أهلاً "
+    },
+
+    en: {
+        subtitle: "Your health matters - order your products easily",
+        login: "Login",
+        logout: "Logout",
+        all: "🛍️ All Products",
+        medicine: "💊 Medicines",
+        vitamins: "💪 Vitamins",
+        devices: "💉 Medical Devices",
+        care: "🧴 Personal Care",
+        kids: "👶 Kids",
+        closeMenu: "Close Menu ✖",
+        search: "🔍 Search for a product...",
+        sort: "⚙️ Sort Products",
+        low: "💰 Price: Low to High",
+        high: "💰 Price: High to Low",
+        az: "🔤 Name: A - Z",
+        za: "🔤 Name: Z - A",
+        allTitle: "🛍️ All Products",
+        medicineTitle: "💊 Medicines",
+        vitaminsTitle: "💪 Vitamins",
+        devicesTitle: "💉 Medical Devices",
+        careTitle: "🧴 Personal Care",
+        kidsTitle: "👶 Kids Products",
+        noProducts: "No products found 😔",
+        productDescription: "Product from Innova Pharmacy",
+        add: "Add to Cart 🛒",
+        cart: "🛒 Cart:",
+        viewCart: "View Cart",
+        cartTitle: "🛒 Shopping Cart",
+        empty: "Your cart is empty",
+        total: "Total:",
+        price: "Price:",
+        quantity: "Quantity:",
+        delete: "Remove",
+        checkout: "📱 Order via WhatsApp",
+        close: "Close",
+        authWelcome: "Welcome to Innova Pharmacy 💚",
+        registerTitle: "Create New Account",
+        register: "Create Account",
+        enter: "Login",
+        name: "Name",
+        email: "Email",
+        password: "Password",
+        switchRegister: "Don't have an account? Register",
+        switchLogin: "Already have an account? Login",
+        thanks: "Thank you for visiting ❤️",
+        priority: "Your health is our priority",
+        writeName: "Please enter your name.",
+        emailExists: "This email is already registered.",
+        wrongLogin: "Incorrect email or password.",
+        emptyCartAlert: "Your cart is empty",
+        hello: "Hello "
+    }
+};
+
+function t(key) {
+    return translations[currentLanguage][key] || key;
+}
+
+function changeLanguage(language) {
+
+    currentLanguage = language;
+    localStorage.setItem("innovaLanguage", language);
+
+    const isArabic = language === "ar";
+
+    document.documentElement.lang = language;
+    document.documentElement.dir = isArabic ? "rtl" : "ltr";
+
+    document.getElementById("languageSelect").value = language;
+
+    document.getElementById("headerSubtitle").textContent = t("subtitle");
+
+    document.getElementById("authWelcome").textContent = t("authWelcome");
+
+    document.getElementById("search").placeholder = t("search");
+
+    const sort = document.getElementById("sortFilter");
+    sort.options[0].text = t("sort");
+    sort.options[1].text = t("low");
+    sort.options[2].text = t("high");
+    sort.options[3].text = t("az");
+    sort.options[4].text = t("za");
+
+    document.getElementById("closeMenuBtn").textContent = t("closeMenu");
+
+    document.getElementById("cartLabel").textContent = t("cart");
+    document.getElementById("viewCartBtn").textContent = t("viewCart");
+    document.getElementById("cartTitle").textContent = t("cartTitle");
+    document.getElementById("totalLabel").textContent = t("total");
+    document.getElementById("checkoutBtn").textContent = t("checkout");
+    document.getElementById("closeCartBtn").textContent = t("close");
+
+    document.getElementById("footerThanks").textContent = t("thanks");
+    document.getElementById("footerPriority").textContent = t("priority");
+
+    document.getElementById("authName").placeholder = t("name");
+    document.getElementById("authEmail").placeholder = t("email");
+    document.getElementById("authPassword").placeholder = t("password");
+
+    document.querySelector('[data-category="all"]').textContent = t("all");
+    document.querySelector('[data-category="medicine"]').textContent = t("medicine");
+    document.querySelector('[data-category="vitamins"]').textContent = t("vitamins");
+    document.querySelector('[data-category="devices"]').textContent = t("devices");
+    document.querySelector('[data-category="care"]').textContent = t("care");
+    document.querySelector('[data-category="kids"]').textContent = t("kids");
+
+    document.getElementById("categoryTitle").textContent = categoryNames[currentCategory];
+
+    document.getElementById("authButton").textContent =
+        localStorage.getItem("innovaCurrentUser") ? t("logout") : t("login");
+
+    resetAuthMode();
+    renderProducts();
+
+    if(document.getElementById("cartBox").style.display === "block") {
+        openCart();
+    }
+
+    loadLoggedUser();
+}
 
 // ==================================
 // المنتجات
@@ -460,7 +890,7 @@ const products = [
 ];
 
 // ==================================
-// عرض المنتجات
+// عرض المنتجات والفلترة
 // ==================================
 
 let currentCategory = "all";
@@ -468,14 +898,21 @@ let cartItems = [];
 
 const productsContainer = document.getElementById("products");
 
+const categoryNames = {
+    all: "🛍️ جميع المنتجات",
+    medicine: "💊 الأدوية",
+    vitamins: "💪 الفيتامينات",
+    devices: "💉 الأجهزة الطبية",
+    care: "🧴 العناية الشخصية",
+    kids: "👶 منتجات الأطفال"
+};
+
 function renderProducts() {
 
     productsContainer.innerHTML = "";
 
-    let searchValue = document
-        .getElementById("search")
-        .value.toLowerCase()
-        .trim();
+    let searchValue = document.getElementById("search").value.toLowerCase().trim();
+    let sortValue = document.getElementById("sortFilter").value;
 
     let filtered = products.filter(product => {
 
@@ -489,9 +926,22 @@ function renderProducts() {
         return categoryMatch && searchMatch;
     });
 
+    if(sortValue === "priceLow") {
+        filtered.sort((a,b) => a.price - b.price);
+    }
+    else if(sortValue === "priceHigh") {
+        filtered.sort((a,b) => b.price - a.price);
+    }
+    else if(sortValue === "nameAZ") {
+        filtered.sort((a,b) => a.name.localeCompare(b.name, "en"));
+    }
+    else if(sortValue === "nameZA") {
+        filtered.sort((a,b) => b.name.localeCompare(a.name, "en"));
+    }
+
     if(filtered.length === 0) {
         productsContainer.innerHTML =
-            '<div class="empty">لا توجد منتجات بهذا الاسم 😔</div>';
+            `<div class="empty">${t("noProducts")}</div>`;
         return;
     }
 
@@ -503,9 +953,9 @@ function renderProducts() {
         card.innerHTML = `
             <div class="product-icon">${product.icon}</div>
             <h3>${product.name}</h3>
-            <p>منتج من Innova Pharmacy</p>
+            <p>${t("productDescription")}</p>
             <p class="price">${product.price} ﷼</p>
-            <button>أضف للسلة 🛒</button>
+            <button>${t("add")}</button>
         `;
 
         card.querySelector("button").addEventListener("click", () => {
@@ -514,21 +964,7 @@ function renderProducts() {
 
         productsContainer.appendChild(card);
     });
-
 }
-
-// ==================================
-// أسماء الأقسام
-// ==================================
-
-const categoryNames = {
-    all:"🛍️ جميع المنتجات",
-    medicine:"💊 الأدوية",
-    vitamins:"💪 الفيتامينات",
-    devices:"💉 الأجهزة الطبية",
-    care:"🧴 العناية الشخصية",
-    kids:"👶 منتجات الأطفال"
-};
 
 // ==================================
 // القائمة الجانبية
@@ -550,10 +986,9 @@ function showCategory(category, button) {
 
     document.getElementById("search").value = "";
 
-    document.getElementById("categoryTitle").innerText =
-        categoryNames[category];
+    updateCategoryTitle();
 
-    document.querySelectorAll(".sidebar button").forEach(btn => {
+    document.querySelectorAll(".sidebar button[data-category]").forEach(btn => {
         btn.classList.remove("active");
     });
 
@@ -563,16 +998,32 @@ function showCategory(category, button) {
     closeMenu();
 
     window.scrollTo({
-        top:0,
-        behavior:"smooth"
+        top: 0,
+        behavior: "smooth"
     });
 }
 
+function updateCategoryTitle() {
+
+    const keys = {
+        all: "allTitle",
+        medicine: "medicineTitle",
+        vitamins: "vitaminsTitle",
+        devices: "devicesTitle",
+        care: "careTitle",
+        kids: "kidsTitle"
+    };
+
+    document.getElementById("categoryTitle").textContent =
+        t(keys[currentCategory]);
+}
+
 // ==================================
-// البحث
+// البحث والفلتر
 // ==================================
 
 document.getElementById("search").addEventListener("input", renderProducts);
+document.getElementById("sortFilter").addEventListener("change", renderProducts);
 
 // ==================================
 // السلة
@@ -586,24 +1037,22 @@ function addToCart(name, price) {
         existing.quantity++;
     } else {
         cartItems.push({
-            name:name,
-            price:price,
-            quantity:1
+            name: name,
+            price: price,
+            quantity: 1
         });
     }
 
     updateCart();
-
 }
 
 function updateCart() {
 
     let count = cartItems.reduce(
-        (sum,item) => sum + item.quantity,0
+        (sum,item) => sum + item.quantity, 0
     );
 
     document.getElementById("cartCount").innerText = count;
-
 }
 
 function openCart() {
@@ -614,7 +1063,7 @@ function openCart() {
     list.innerHTML = "";
 
     if(cartItems.length === 0) {
-        list.innerHTML = "<li>السلة فارغة</li>";
+        list.innerHTML = `<li>${t("empty")}</li>`;
     }
 
     cartItems.forEach((item,index) => {
@@ -627,23 +1076,20 @@ function openCart() {
         li.innerHTML = `
             <strong>${item.name}</strong>
             <br>
-            السعر: ${item.price} ﷼
+            ${t("price")} ${item.price} ﷼
             <br>
-            الكمية: ${item.quantity}
+            ${t("quantity")} ${item.quantity}
             <br>
             <button onclick="changeQuantity(${index},1)">+</button>
             <button onclick="changeQuantity(${index},-1)">-</button>
-            <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
+            <button class="remove-btn" onclick="removeItem(${index})">${t("delete")}</button>
         `;
 
         list.appendChild(li);
-
     });
 
     document.getElementById("total").innerText = total;
-
     document.getElementById("cartBox").style.display = "block";
-
 }
 
 function changeQuantity(index,amount) {
@@ -656,7 +1102,6 @@ function changeQuantity(index,amount) {
 
     updateCart();
     openCart();
-
 }
 
 function removeItem(index) {
@@ -665,7 +1110,6 @@ function removeItem(index) {
 
     updateCart();
     openCart();
-
 }
 
 function closeCart() {
@@ -679,38 +1123,204 @@ function closeCart() {
 function checkout() {
 
     if(cartItems.length === 0) {
-        alert("السلة فارغة");
+        alert(t("emptyCartAlert"));
         return;
     }
 
-    let message = "🛒 طلب جديد من Innova Pharmacy\n\n";
+    let message = "🛒 New order from Innova Pharmacy\n\n";
     let total = 0;
 
     cartItems.forEach(item => {
 
         let subtotal = item.price * item.quantity;
-
         total += subtotal;
 
         message +=
             "• " + item.name +
             " × " + item.quantity +
-            " = " + subtotal + " ﷼\n";
-
+            " = " + subtotal + " SAR\n";
     });
 
-    message += "\n💰 الإجمالي: " + total + " ﷼";
+    message += "\n💰 Total: " + total + " SAR";
 
     window.open(
         "https://wa.me/201016528369?text=" +
         encodeURIComponent(message),
         "_blank"
     );
-
 }
 
+// ==================================
+// تسجيل الدخول وإنشاء الحساب
+// ==================================
+
+let isRegisterMode = false;
+
+function openAuth() {
+
+    const savedUser = localStorage.getItem("innovaCurrentUser");
+
+    if(savedUser) {
+        logout();
+        return;
+    }
+
+    document.getElementById("authOverlay").classList.add("show");
+    document.getElementById("authMessage").textContent = "";
+}
+
+function closeAuth() {
+    document.getElementById("authOverlay").classList.remove("show");
+}
+
+function closeAuthOutside(event) {
+    if(event.target.id === "authOverlay") {
+        closeAuth();
+    }
+}
+
+function toggleAuthMode() {
+
+    isRegisterMode = !isRegisterMode;
+
+    document.getElementById("authTitle").textContent =
+        isRegisterMode ? t("registerTitle") : t("login");
+
+    document.getElementById("authName").style.display =
+        isRegisterMode ? "block" : "none";
+
+    document.getElementById("authName").required = isRegisterMode;
+
+    document.getElementById("authSubmit").textContent =
+        isRegisterMode ? t("register") : t("enter");
+
+    document.getElementById("authSwitch").textContent =
+        isRegisterMode ? t("switchLogin") : t("switchRegister");
+
+    document.getElementById("authMessage").textContent = "";
+}
+
+function handleAuth(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("authName").value.trim();
+    const email = document.getElementById("authEmail").value.trim().toLowerCase();
+    const password = document.getElementById("authPassword").value;
+
+    let users = JSON.parse(localStorage.getItem("innovaUsers") || "[]");
+
+    if(isRegisterMode) {
+
+        if(!name) {
+            showAuthMessage(t("writeName"));
+            return;
+        }
+
+        if(users.some(user => user.email === email)) {
+            showAuthMessage(t("emailExists"));
+            return;
+        }
+
+        users.push({
+            name: name,
+            email: email,
+            password: password
+        });
+
+        localStorage.setItem("innovaUsers", JSON.stringify(users));
+
+        loginSuccess(name,email);
+
+    } else {
+
+        const user = users.find(user =>
+            user.email === email && user.password === password
+        );
+
+        if(!user) {
+            showAuthMessage(t("wrongLogin"));
+            return;
+        }
+
+        loginSuccess(user.name,user.email);
+    }
+}
+
+function showAuthMessage(message) {
+    document.getElementById("authMessage").textContent = message;
+}
+
+function loginSuccess(name,email) {
+
+    const user = {name: name, email: email};
+
+    localStorage.setItem("innovaCurrentUser", JSON.stringify(user));
+
+    updateAuthUI(user);
+
+    closeAuth();
+
+    document.getElementById("authForm").reset();
+
+    isRegisterMode = false;
+    resetAuthMode();
+}
+
+function updateAuthUI(user) {
+
+    const button = document.getElementById("authButton");
+    const nameLabel = document.getElementById("userName");
+
+    if(user) {
+        button.textContent = t("logout");
+        nameLabel.textContent = t("hello") + user.name;
+    } else {
+        button.textContent = t("login");
+        nameLabel.textContent = "";
+    }
+}
+
+function logout() {
+    localStorage.removeItem("innovaCurrentUser");
+    updateAuthUI(null);
+}
+
+function resetAuthMode() {
+
+    document.getElementById("authTitle").textContent = t("login");
+    document.getElementById("authName").style.display = "none";
+    document.getElementById("authName").required = false;
+    document.getElementById("authSubmit").textContent = t("enter");
+    document.getElementById("authSwitch").textContent = t("switchRegister");
+    document.getElementById("authMessage").textContent = "";
+}
+
+function loadLoggedUser() {
+
+    const savedUser = localStorage.getItem("innovaCurrentUser");
+
+    if(savedUser) {
+        try {
+            updateAuthUI(JSON.parse(savedUser));
+        } catch(error) {
+            localStorage.removeItem("innovaCurrentUser");
+            updateAuthUI(null);
+        }
+    } else {
+        updateAuthUI(null);
+    }
+}
+
+// ==================================
 // تشغيل الموقع
+// ==================================
+
+document.getElementById("languageSelect").value = currentLanguage;
+
 renderProducts();
+loadLoggedUser();
+changeLanguage(currentLanguage);
 
 </script>
 
