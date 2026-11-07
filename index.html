@@ -12,24 +12,34 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
-    background: #f4f7fa;
+    background: #f5f9fa;
     color: #222;
 }
 
+/* Header */
+
 header {
-    background: #0b7a75;
-    color: white;
-    padding: 30px 15px;
+    background: transparent;
+    color: #163d3b;
+    padding: 22px 15px;
+    min-height: 90px;
     text-align: center;
     position: relative;
 }
 
 header h1 {
-    font-size: 30px;
-    margin-bottom: 10px;
+    color: #0b7a75;
+    font-size: 27px;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #607b79;
 }
 
 .auth-area {
@@ -50,6 +60,7 @@ header h1 {
     font-size: 14px;
     font-weight: bold;
     white-space: nowrap;
+    box-shadow: 0 2px 10px #0001;
 }
 
 .auth-btn:hover {
@@ -59,14 +70,16 @@ header h1 {
 
 .user-name {
     font-size: 13px;
-    color: white;
+    color: #0b7a75;
 }
+
+/* Menu - Fixed */
 
 .menu-btn {
     position: fixed;
     top: 18px;
     right: 18px;
-    z-index: 1001;
+    z-index: 9998;
     background: white;
     color: #0b7a75;
     font-size: 27px;
@@ -74,24 +87,33 @@ header h1 {
     height: 45px;
     border-radius: 12px;
     box-shadow: 0 2px 10px #0002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .sidebar {
     position: fixed;
     top: 0;
-    right: -290px;
-    width: 270px;
+    right: -300px;
+    width: 280px;
+    max-width: 85vw;
     height: 100%;
     background: white;
-    z-index: 1002;
+    z-index: 10000;
     padding: 25px 18px;
     box-shadow: -5px 0 20px #0002;
-    transition: .3s;
+    transition: right .3s ease;
     overflow-y: auto;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 .sidebar.open {
     right: 0;
+    pointer-events: auto;
+    visibility: visible;
 }
 
 .sidebar h2 {
@@ -110,6 +132,9 @@ header h1 {
     padding: 14px;
     border-radius: 10px;
     font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10001;
 }
 
 .sidebar button.active,
@@ -129,14 +154,237 @@ header h1 {
     position: fixed;
     inset: 0;
     background: #0007;
-    z-index: 1000;
+    z-index: 9999;
+    cursor: pointer;
 }
 
 .overlay.show {
     display: block;
 }
 
-/* البحث والفلتر واللغة */
+/* Premium Hero Section */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    margin: 10px 20px 30px;
+    min-height: 390px;
+    border-radius: 28px;
+    background: linear-gradient(120deg, #e2f7f3, #f4fbfa 55%, #d4f0eb);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 55px 7%;
+    isolation: isolate;
+}
+
+.hero::before,
+.hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+.hero::before {
+    width: 330px;
+    height: 330px;
+    background: #a9e5dc88;
+    top: -130px;
+    right: 20%;
+    animation: floatCircle 8s ease-in-out infinite;
+}
+
+.hero::after {
+    width: 250px;
+    height: 250px;
+    background: #70cfc477;
+    bottom: -130px;
+    left: 10%;
+    animation: floatCircle 7s ease-in-out infinite reverse;
+}
+
+.hero-content {
+    max-width: 540px;
+    z-index: 2;
+}
+
+.hero-tag {
+    display: inline-block;
+    background: white;
+    color: #0b7a75;
+    padding: 9px 17px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px #0b7a7512;
+}
+
+.hero-content h2 {
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.35;
+    color: #153e3b;
+    margin-bottom: 15px;
+}
+
+.hero-content h2 span {
+    color: #0b7a75;
+}
+
+.hero-content p {
+    color: #607b79;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 25px;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    background: #0b7a75;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 13px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 8px 20px #0b7a7533;
+    transition: .25s;
+}
+
+.hero-button:hover {
+    background: #075e59;
+    transform: translateY(-3px);
+}
+
+.hero-visual {
+    position: relative;
+    width: 330px;
+    height: 280px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-circle {
+    width: 225px;
+    height: 225px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffffff, #c5eee6);
+    box-shadow: 0 20px 55px #0b7a7522;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 105px;
+    animation: heroPulse 4s ease-in-out infinite;
+}
+
+.float-card {
+    position: absolute;
+    background: white;
+    padding: 13px 17px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px #174d4720;
+    font-size: 14px;
+    font-weight: bold;
+    color: #24534e;
+    animation: floatCard 4s ease-in-out infinite;
+    white-space: nowrap;
+}
+
+.float-card.one {
+    top: 15px;
+    right: -5px;
+}
+
+.float-card.two {
+    bottom: 20px;
+    left: -10px;
+    animation-delay: 1s;
+}
+
+.float-card.three {
+    top: 48%;
+    right: -35px;
+    animation-delay: 2s;
+}
+
+@keyframes floatCard {
+    0%,100% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(-13px) rotate(2deg);
+    }
+}
+
+@keyframes heroPulse {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.045);
+    }
+}
+
+@keyframes floatCircle {
+    0%,100% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(25px,-20px);
+    }
+}
+
+/* Features */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin: 0 20px 35px;
+}
+
+.feature {
+    background: white;
+    border: 1px solid #e8f0ef;
+    border-radius: 17px;
+    padding: 20px 12px;
+    text-align: center;
+    box-shadow: 0 5px 20px #00000006;
+    transition: .3s;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px #0b7a7515;
+}
+
+.feature-icon {
+    font-size: 28px;
+    margin-bottom: 9px;
+}
+
+.feature h3 {
+    color: #174b46;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.feature p {
+    color: #849795;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Search and Filters */
+
 .search {
     display: flex;
     align-items: center;
@@ -177,10 +425,13 @@ header h1 {
     min-width: 105px;
 }
 
+/* Products */
+
 .section-title {
     text-align: center;
     color: #0b7a75;
-    margin: 20px 0;
+    margin: 35px 0 10px;
+    font-size: 25px;
 }
 
 .products {
@@ -188,19 +439,22 @@ header h1 {
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 20px;
     padding: 20px;
+    scroll-margin-top: 20px;
 }
 
 .card {
     background: white;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 0 10px #0001;
+    border: 1px solid #edf1f1;
+    box-shadow: 0 5px 20px #00000008;
     text-align: center;
     transition: .3s;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 12px 30px #0b7a7515;
 }
 
 .product-icon {
@@ -243,11 +497,20 @@ button:hover {
     background: #075e59;
 }
 
+.empty {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 40px;
+    color: #777;
+}
+
+/* Cart */
+
 .cart {
     position: fixed;
     bottom: 15px;
     left: 15px;
-    z-index: 10;
+    z-index: 2000;
     background: white;
     padding: 12px;
     border-radius: 12px;
@@ -298,6 +561,8 @@ button:hover {
     margin-top: 18px;
 }
 
+/* Footer */
+
 footer {
     background: #0b7a75;
     color: white;
@@ -306,14 +571,8 @@ footer {
     margin-top: 30px;
 }
 
-.empty {
-    text-align: center;
-    grid-column: 1 / -1;
-    padding: 40px;
-    color: #777;
-}
+/* Authentication */
 
-/* تسجيل الدخول */
 .auth-overlay {
     display: none;
     position: fixed;
@@ -399,7 +658,9 @@ footer {
     line-height: 1.6;
 }
 
-@media(max-width:600px) {
+/* Mobile */
+
+@media(max-width:700px) {
     .products {
         grid-template-columns: repeat(2, minmax(0,1fr));
         gap: 12px;
@@ -458,16 +719,73 @@ footer {
         padding: 13px 4px;
         font-size: 11px;
     }
+
+    .hero {
+        margin: 5px 10px 22px;
+        padding: 35px 22px;
+        min-height: auto;
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 30px;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+    }
+
+    .hero-visual {
+        width: 260px;
+        height: 220px;
+    }
+
+    .hero-circle {
+        width: 165px;
+        height: 165px;
+        font-size: 75px;
+    }
+
+    .float-card {
+        font-size: 11px;
+        padding: 10px 12px;
+    }
+
+    .float-card.three {
+        right: -10px;
+    }
+
+    .features {
+        margin: 0 10px 25px;
+        gap: 8px;
+    }
+
+    .feature {
+        padding: 15px 7px;
+    }
+
+    .feature h3 {
+        font-size: 12px;
+    }
+
+    .feature p {
+        font-size: 10px;
+    }
 }
 
-/* الاتجاه الإنجليزي */
+/* English Direction */
+
 html[dir="ltr"] .sidebar {
     right: auto;
-    left: -290px;
+    left: -300px;
+    transition: left .3s ease;
 }
 
 html[dir="ltr"] .sidebar.open {
     left: 0;
+    right: auto;
 }
 
 html[dir="ltr"] .sidebar button {
@@ -496,29 +814,63 @@ html[dir="ltr"] .auth-area {
     direction: ltr;
 }
 
+html[dir="ltr"] .hero {
+    direction: ltr;
+}
+
+html[dir="ltr"] .hero-content {
+    text-align: left;
+}
+
+html[dir="ltr"] .float-card.one {
+    right: auto;
+    left: -5px;
+}
+
+html[dir="ltr"] .float-card.two {
+    left: auto;
+    right: -10px;
+}
+
+html[dir="ltr"] .float-card.three {
+    right: auto;
+    left: -35px;
+}
+
+html[dir="ltr"] .hero::before {
+    right: auto;
+    left: 20%;
+}
+
+@media(max-width:700px) {
+    html[dir="ltr"] .hero-content {
+        text-align: center;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<button class="menu-btn" onclick="openMenu()">⋮</button>
+<button class="menu-btn" id="menuBtn" type="button"
+        onclick="openMenu()" aria-label="فتح القائمة">⋮</button>
 
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<div class="sidebar" id="sidebar">
+<nav class="sidebar" id="sidebar">
 
     <h2>💊 Innova Pharmacy</h2>
 
-    <button class="active" data-category="all" onclick="showCategory('all',this)">🛍️ كل المنتجات</button>
-    <button data-category="medicine" onclick="showCategory('medicine',this)">💊 الأدوية</button>
-    <button data-category="vitamins" onclick="showCategory('vitamins',this)">💪 الفيتامينات</button>
-    <button data-category="devices" onclick="showCategory('devices',this)">💉 الأجهزة الطبية</button>
-    <button data-category="care" onclick="showCategory('care',this)">🧴 العناية الشخصية</button>
-    <button data-category="kids" onclick="showCategory('kids',this)">👶 الأطفال</button>
+    <button type="button" class="active" data-category="all">🛍️ كل المنتجات</button>
+    <button type="button" data-category="medicine">💊 الأدوية</button>
+    <button type="button" data-category="vitamins">💪 الفيتامينات</button>
+    <button type="button" data-category="devices">💉 الأجهزة الطبية</button>
+    <button type="button" data-category="care">🧴 العناية الشخصية</button>
+    <button type="button" data-category="kids">👶 الأطفال</button>
 
-    <button class="close-menu" id="closeMenuBtn" onclick="closeMenu()">إغلاق القائمة ✖</button>
+    <button class="close-menu" id="closeMenuBtn" type="button" onclick="closeMenu()">إغلاق القائمة ✖</button>
 
-</div>
+</nav>
 
 <header>
 
@@ -529,9 +881,81 @@ html[dir="ltr"] .auth-area {
 
     <h1>💊 Innova Pharmacy</h1>
     <p id="headerSubtitle">صحتك تهمنا - اطلب منتجاتك بسهولة</p>
+
 </header>
 
-<!-- البحث والفلتر وتغيير اللغة -->
+<!-- Homepage -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="hero-tag" id="heroTag">
+            ✨ عنايتك بصحتك تبدأ من هنا
+        </span>
+
+        <h2 id="heroTitle">
+            صحتك تستحق
+            <span>الأفضل دائماً</span>
+        </h2>
+
+        <p id="heroDescription">
+            اكتشف مجموعة متنوعة من المنتجات الصحية والطبية
+            واطلب احتياجاتك بسهولة من Innova Pharmacy.
+        </p>
+
+        <a href="#products" class="hero-button" id="heroButton">
+            تسوق الآن 🛍️
+        </a>
+
+    </div>
+
+    <div class="hero-visual">
+
+        <div class="hero-circle">💊</div>
+
+        <div class="float-card one" id="heroCardOne">
+            🩺 صحتك أولويتنا
+        </div>
+
+        <div class="float-card two" id="heroCardTwo">
+            💚 عناية واهتمام
+        </div>
+
+        <div class="float-card three" id="heroCardThree">
+            ✨ جودة تثق بها
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Features -->
+
+<section class="features">
+
+    <div class="feature">
+        <div class="feature-icon">💊</div>
+        <h3 id="featureTitle1">منتجات متنوعة</h3>
+        <p id="featureText1">كل احتياجاتك الصحية في مكان واحد</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3 id="featureTitle2">طلب سهل وسريع</h3>
+        <p id="featureText2">اطلب منتجاتك بسهولة عبر واتساب</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">💚</div>
+        <h3 id="featureTitle3">نهتم بصحتك</h3>
+        <p id="featureText3">راحتك وصحتك من أولوياتنا</p>
+    </div>
+
+</section>
+
+<!-- Search, Sort and Language -->
+
 <div class="search">
 
     <input type="text" id="search" placeholder="🔍 ابحث عن اسم المنتج...">
@@ -544,7 +968,6 @@ html[dir="ltr"] .auth-area {
         <option value="nameZA">🔤 الاسم: ي - أ</option>
     </select>
 
-    <!-- زر اللغة في الشمال -->
     <select id="languageSelect" class="language-select" onchange="changeLanguage(this.value)">
         <option value="ar">🇸🇦 عربي</option>
         <option value="en">🇬🇧 English</option>
@@ -555,6 +978,8 @@ html[dir="ltr"] .auth-area {
 <h2 class="section-title" id="categoryTitle">🛍️ جميع المنتجات</h2>
 
 <div class="products" id="products"></div>
+
+<!-- Cart -->
 
 <div class="cart" id="cart">
     <span id="cartLabel">🛒 السلة:</span>
@@ -580,6 +1005,8 @@ html[dir="ltr"] .auth-area {
     </div>
 
 </div>
+
+<!-- Authentication -->
 
 <div class="auth-overlay" id="authOverlay" onclick="closeAuthOutside(event)">
     <div class="auth-modal">
@@ -620,7 +1047,7 @@ html[dir="ltr"] .auth-area {
 <script>
 
 // ==================================
-// اللغة والترجمة
+// Language and Translations
 // ==================================
 
 let currentLanguage = localStorage.getItem("innovaLanguage") || "ar";
@@ -678,7 +1105,20 @@ const translations = {
         emailExists: "هذا البريد الإلكتروني مسجل بالفعل.",
         wrongLogin: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
         emptyCartAlert: "السلة فارغة",
-        hello: "أهلاً "
+        hello: "أهلاً ",
+        heroTag: "✨ عنايتك بصحتك تبدأ من هنا",
+        heroTitle: "صحتك تستحق الأفضل دائماً",
+        heroDescription: "اكتشف مجموعة متنوعة من المنتجات الصحية والطبية واطلب احتياجاتك بسهولة من Innova Pharmacy.",
+        heroButton: "تسوق الآن 🛍️",
+        heroCardOne: "🩺 صحتك أولويتنا",
+        heroCardTwo: "💚 عناية واهتمام",
+        heroCardThree: "✨ جودة تثق بها",
+        featureTitle1: "منتجات متنوعة",
+        featureText1: "كل احتياجاتك الصحية في مكان واحد",
+        featureTitle2: "طلب سهل وسريع",
+        featureText2: "اطلب منتجاتك بسهولة عبر واتساب",
+        featureTitle3: "نهتم بصحتك",
+        featureText3: "راحتك وصحتك من أولوياتنا"
     },
 
     en: {
@@ -732,7 +1172,20 @@ const translations = {
         emailExists: "This email is already registered.",
         wrongLogin: "Incorrect email or password.",
         emptyCartAlert: "Your cart is empty",
-        hello: "Hello "
+        hello: "Hello ",
+        heroTag: "✨ Your health journey starts here",
+        heroTitle: "Your Health Deserves the Best",
+        heroDescription: "Discover a wide range of healthcare and medical products. Get what you need easily from Innova Pharmacy.",
+        heroButton: "Shop Now 🛍️",
+        heroCardOne: "🩺 Your health comes first",
+        heroCardTwo: "💚 Care & attention",
+        heroCardThree: "✨ Quality you can trust",
+        featureTitle1: "Wide Product Range",
+        featureText1: "Your healthcare needs in one place",
+        featureTitle2: "Easy & Fast Ordering",
+        featureText2: "Order easily through WhatsApp",
+        featureTitle3: "We Care About You",
+        featureText3: "Your health and comfort matter"
     }
 };
 
@@ -753,12 +1206,11 @@ function changeLanguage(language) {
     document.getElementById("languageSelect").value = language;
 
     document.getElementById("headerSubtitle").textContent = t("subtitle");
-
     document.getElementById("authWelcome").textContent = t("authWelcome");
-
     document.getElementById("search").placeholder = t("search");
 
     const sort = document.getElementById("sortFilter");
+
     sort.options[0].text = t("sort");
     sort.options[1].text = t("low");
     sort.options[2].text = t("high");
@@ -788,7 +1240,26 @@ function changeLanguage(language) {
     document.querySelector('[data-category="care"]').textContent = t("care");
     document.querySelector('[data-category="kids"]').textContent = t("kids");
 
-    document.getElementById("categoryTitle").textContent = categoryNames[currentCategory];
+    document.getElementById("heroTag").textContent = t("heroTag");
+
+    document.getElementById("heroTitle").innerHTML =
+        isArabic
+        ? 'صحتك تستحق <span>الأفضل دائماً</span>'
+        : 'Your Health Deserves <span>the Best</span>';
+
+    document.getElementById("heroDescription").textContent = t("heroDescription");
+    document.getElementById("heroButton").textContent = t("heroButton");
+
+    document.getElementById("heroCardOne").textContent = t("heroCardOne");
+    document.getElementById("heroCardTwo").textContent = t("heroCardTwo");
+    document.getElementById("heroCardThree").textContent = t("heroCardThree");
+
+    for(let i = 1; i <= 3; i++) {
+        document.getElementById("featureTitle" + i).textContent = t("featureTitle" + i);
+        document.getElementById("featureText" + i).textContent = t("featureText" + i);
+    }
+
+    updateCategoryTitle();
 
     document.getElementById("authButton").textContent =
         localStorage.getItem("innovaCurrentUser") ? t("logout") : t("login");
@@ -804,12 +1275,12 @@ function changeLanguage(language) {
 }
 
 // ==================================
-// المنتجات
+// Products - 68 Products
 // ==================================
 
 const products = [
 
-    // الأدوية
+    // Medicines
     {name:"Panadol",price:12,category:"medicine",icon:"💊"},
     {name:"Panadol Extra",price:18,category:"medicine",icon:"💊"},
     {name:"Paracetamol",price:14,category:"medicine",icon:"💊"},
@@ -826,7 +1297,7 @@ const products = [
     {name:"Gauze Dressing",price:12,category:"medicine",icon:"🩹"},
     {name:"Eye Drops",price:24,category:"medicine",icon:"👁️"},
 
-    // الفيتامينات
+    // Vitamins
     {name:"Vitamin C",price:35,category:"vitamins",icon:"💪"},
     {name:"Omega 3",price:89,category:"vitamins",icon:"💊"},
     {name:"Vitamin D3",price:45,category:"vitamins",icon:"☀️"},
@@ -842,7 +1313,7 @@ const products = [
     {name:"Iron Supplement",price:32,category:"vitamins",icon:"💊"},
     {name:"Vitamin B Complex",price:37,category:"vitamins",icon:"💊"},
 
-    // الأجهزة الطبية
+    // Medical Devices
     {name:"Thermometer",price:25,category:"devices",icon:"🌡️"},
     {name:"Digital Thermometer",price:39,category:"devices",icon:"🌡️"},
     {name:"Blood Pressure Monitor",price:149,category:"devices",icon:"🩺"},
@@ -856,7 +1327,7 @@ const products = [
     {name:"Hot Water Bag",price:30,category:"devices",icon:"♨️"},
     {name:"Ice Pack",price:25,category:"devices",icon:"🧊"},
 
-    // العناية الشخصية
+    // Personal Care
     {name:"Face Mask",price:12,category:"care",icon:"😷"},
     {name:"Hand Sanitizer",price:15,category:"care",icon:"🧴"},
     {name:"Moisturizing Cream",price:29,category:"care",icon:"🧴"},
@@ -873,7 +1344,7 @@ const products = [
     {name:"Deodorant",price:24,category:"care",icon:"🧴"},
     {name:"Cotton Pads",price:12,category:"care",icon:"🧻"},
 
-    // الأطفال
+    // Kids
     {name:"Baby Shampoo",price:25,category:"kids",icon:"🧴"},
     {name:"Baby Lotion",price:30,category:"kids",icon:"👶"},
     {name:"Baby Wipes",price:15,category:"kids",icon:"🧻"},
@@ -890,7 +1361,7 @@ const products = [
 ];
 
 // ==================================
-// عرض المنتجات والفلترة
+// Products Rendering and Filtering
 // ==================================
 
 let currentCategory = "all";
@@ -955,7 +1426,7 @@ function renderProducts() {
             <h3>${product.name}</h3>
             <p>${t("productDescription")}</p>
             <p class="price">${product.price} ﷼</p>
-            <button>${t("add")}</button>
+            <button type="button">${t("add")}</button>
         `;
 
         card.querySelector("button").addEventListener("click", () => {
@@ -967,20 +1438,43 @@ function renderProducts() {
 }
 
 // ==================================
-// القائمة الجانبية
+// Sidebar - Fixed Navigation
 // ==================================
 
 function openMenu() {
-    document.getElementById("sidebar").classList.add("open");
-    document.getElementById("overlay").classList.add("show");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    sidebar.classList.add("open");
+    overlay.classList.add("show");
+
+    document.getElementById("menuBtn").setAttribute("aria-expanded", "true");
 }
 
 function closeMenu() {
-    document.getElementById("sidebar").classList.remove("open");
-    document.getElementById("overlay").classList.remove("show");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+
+    document.getElementById("menuBtn").setAttribute("aria-expanded", "false");
 }
 
 function showCategory(category, button) {
+
+    const validCategories = [
+        "all",
+        "medicine",
+        "vitamins",
+        "devices",
+        "care",
+        "kids"
+    ];
+
+    if(!validCategories.includes(category)) {
+        return;
+    }
 
     currentCategory = category;
 
@@ -992,16 +1486,37 @@ function showCategory(category, button) {
         btn.classList.remove("active");
     });
 
-    button.classList.add("active");
+    const selectedButton = button ||
+        document.querySelector(`.sidebar button[data-category="${category}"]`);
+
+    if(selectedButton) {
+        selectedButton.classList.add("active");
+    }
 
     renderProducts();
     closeMenu();
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+    document.getElementById("products").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
     });
 }
+
+// ربط جميع أزرار الأقسام مباشرة
+document.querySelectorAll(".sidebar button[data-category]").forEach(button => {
+    button.addEventListener("click", function() {
+        showCategory(this.dataset.category, this);
+    });
+});
+
+// إغلاق القائمة عند الضغط على Escape
+document.addEventListener("keydown", function(event) {
+    if(event.key === "Escape") {
+        closeMenu();
+        closeCart();
+        closeAuth();
+    }
+});
 
 function updateCategoryTitle() {
 
@@ -1019,14 +1534,14 @@ function updateCategoryTitle() {
 }
 
 // ==================================
-// البحث والفلتر
+// Search and Sort
 // ==================================
 
 document.getElementById("search").addEventListener("input", renderProducts);
 document.getElementById("sortFilter").addEventListener("change", renderProducts);
 
 // ==================================
-// السلة
+// Shopping Cart
 // ==================================
 
 function addToCart(name, price) {
@@ -1117,7 +1632,7 @@ function closeCart() {
 }
 
 // ==================================
-// الطلب عبر واتساب
+// WhatsApp Checkout
 // ==================================
 
 function checkout() {
@@ -1151,7 +1666,7 @@ function checkout() {
 }
 
 // ==================================
-// تسجيل الدخول وإنشاء الحساب
+// Login and Registration
 // ==================================
 
 let isRegisterMode = false;
@@ -1313,7 +1828,7 @@ function loadLoggedUser() {
 }
 
 // ==================================
-// تشغيل الموقع
+// Start Website
 // ==================================
 
 document.getElementById("languageSelect").value = currentLanguage;
