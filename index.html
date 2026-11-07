@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -6,394 +7,710 @@
 <title>Innova Pharmacy</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-background:#f4f7fa;
+body {
+    background: #f4f7fa;
+    color: #222;
 }
 
-header{
-background:#0b7a75;
-color:white;
-padding:20px;
-text-align:center;
+header {
+    background: #0b7a75;
+    color: white;
+    padding: 30px 15px;
+    text-align: center;
 }
 
-.search{
-text-align:center;
-margin:20px;
+header h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 
-input{
-padding:10px;
-width:300px;
-border:1px solid #ccc;
-border-radius:10px;
+.menu-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 1001;
+    background: white;
+    color: #0b7a75;
+    font-size: 27px;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px #0002;
 }
 
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-padding:20px;
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -290px;
+    width: 270px;
+    height: 100%;
+    background: white;
+    z-index: 1002;
+    padding: 25px 18px;
+    box-shadow: -5px 0 20px #0002;
+    transition: .3s;
+    overflow-y: auto;
 }
 
-.card{
-background:white;
-padding:15px;
-border-radius:15px;
-box-shadow:0 0 10px rgba(0,0,0,.1);
-text-align:center;
+.sidebar.open {
+    right: 0;
 }
 
-.card img{
-width:100%;
-height:180px;
-object-fit:cover;
-border-radius:10px;
+.sidebar h2 {
+    color: #0b7a75;
+    margin: 20px 0 30px;
+    text-align: center;
 }
 
-.price{
-color:#0b7a75;
-font-size:20px;
-font-weight:bold;
-margin:10px 0;
+.sidebar button {
+    display: block;
+    width: 100%;
+    text-align: right;
+    background: #f1f7f7;
+    color: #333;
+    margin-bottom: 12px;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
 }
 
-button{
-background:#0b7a75;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-cursor:pointer;
+.sidebar button.active,
+.sidebar button:hover {
+    background: #0b7a75;
+    color: white;
 }
 
-.cart{
-position:fixed;
-top:20px;
-left:20px;
-background:white;
-padding:10px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,.2);
+.close-menu {
+    background: #d9534f !important;
+    color: white !important;
+    text-align: center !important;
 }
 
-#cartBox{
-display:none;
-position:fixed;
-top:100px;
-left:50%;
-transform:translateX(-50%);
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,.3);
-width:300px;
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0007;
+    z-index: 1000;
+}
+
+.overlay.show {
+    display: block;
+}
+
+.search {
+    text-align: center;
+    margin: 25px 15px;
+}
+
+.search input {
+    padding: 14px;
+    width: 90%;
+    max-width: 450px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.section-title {
+    text-align: center;
+    color: #0b7a75;
+    margin: 20px 0;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #0001;
+    text-align: center;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.product-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.card p {
+    color: #666;
+    font-size: 13px;
+}
+
+.price {
+    color: #0b7a75 !important;
+    font-size: 21px !important;
+    font-weight: bold;
+    margin: 13px 0;
+}
+
+.card button {
+    width: 100%;
+}
+
+button {
+    background: #0b7a75;
+    color: white;
+    border: none;
+    padding: 11px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #075e59;
+}
+
+.cart {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    z-index: 10;
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #0002;
+}
+
+#cartCount {
+    color: #0b7a75;
+    font-weight: bold;
+}
+
+#cartBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #0005;
+    width: 92%;
+    max-width: 420px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 2000;
+}
+
+#cartItems {
+    margin: 20px;
+    padding-right: 20px;
+}
+
+#cartItems li {
+    margin-bottom: 18px;
+    line-height: 2;
+}
+
+.remove-btn {
+    background: #d9534f;
+    padding: 6px 10px;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+footer {
+    background: #0b7a75;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+.empty {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 40px;
+    color: #777;
+}
+
+@media(max-width:600px) {
+    .products {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .card {
+        padding: 13px;
+    }
+
+    .card h3 {
+        font-size: 15px;
+    }
+
+    .product-icon {
+        font-size: 38px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- زر الثلاث نقاط -->
+<button class="menu-btn" onclick="openMenu()">⋮</button>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- القائمة الجانبية -->
+<div class="sidebar" id="sidebar">
+
+    <h2>💊 Innova Pharmacy</h2>
+
+    <button class="active" onclick="showCategory('all',this)">
+        🛍️ كل المنتجات
+    </button>
+
+    <button onclick="showCategory('medicine',this)">
+        💊 الأدوية
+    </button>
+
+    <button onclick="showCategory('vitamins',this)">
+        💪 الفيتامينات
+    </button>
+
+    <button onclick="showCategory('devices',this)">
+        💉 الأجهزة الطبية
+    </button>
+
+    <button onclick="showCategory('care',this)">
+        🧴 العناية الشخصية
+    </button>
+
+    <button onclick="showCategory('kids',this)">
+        👶 الأطفال
+    </button>
+
+    <button class="close-menu" onclick="closeMenu()">
+        إغلاق القائمة ✖
+    </button>
+
+</div>
+
 <header>
-<h1>💊 Innova Pharmacy</h1>
-<p>اطلب منتجاتك بسهولة</p>
+    <h1>💊 Innova Pharmacy</h1>
+    <p>صحتك تهمنا - اطلب منتجاتك بسهولة</p>
 </header>
 
-<div class="cart">
-🛒 السلة:
-<span id="cartCount">0</span>
-<br><br>
-<button onclick="openCart()">عرض السلة</button>
-</div>
-
 <div class="search">
-<input type="text" id="search" placeholder="ابحث عن منتج...">
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 ابحث عن اسم المنتج..."
+    >
 </div>
 
-<div class="products">
-<div class="card">
-<h3>Panadol</h3>
-<p class="price">12 ﷼</p>
-<button onclick="addToCart('Panadol',12)">أضف للسلة</button>
-</div>
+<h2 class="section-title" id="categoryTitle">
+    🛍️ جميع المنتجات
+</h2>
 
-<div class="card">
-<h3>Vitamin C</h3>
-<p class="price">35 ﷼</p>
-<button onclick="addToCart('Vitamin C',35)">أضف للسلة</button>
-</div>
+<div class="products" id="products"></div>
 
-<div class="card">
-<h3>Omega 3</h3>
-<p class="price">89 ﷼</p>
-<button onclick="addToCart('Omega 3',89)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Thermometer</h3>
-<p class="price">25 ﷼</p>
-<button onclick="addToCart('Thermometer',25)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Panadol Extra</h3>
-<p class="price">18 ﷼</p>
-<button onclick="addToCart('Panadol Extra',18)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Vitamin D3</h3>
-<p class="price">45 ﷼</p>
-<button onclick="addToCart('Vitamin D3',45)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Centrum</h3>
-<p class="price">65 ﷼</p>
-<button onclick="addToCart('Centrum',65)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Calcium Tablets</h3>
-<p class="price">38 ﷼</p>
-<button onclick="addToCart('Calcium Tablets',38)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Omega 3 Plus</h3>
-<p class="price">95 ﷼</p>
-<button onclick="addToCart('Omega 3 Plus',95)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Face Mask</h3>
-<p class="price">12 ﷼</p>
-<button onclick="addToCart('Face Mask',12)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Hand Sanitizer</h3>
-<p class="price">15 ﷼</p>
-<button onclick="addToCart('Hand Sanitizer',15)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Digital Thermometer</h3>
-<p class="price">39 ﷼</p>
-<button onclick="addToCart('Digital Thermometer',39)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Blood Pressure Monitor</h3>
-<p class="price">149 ﷼</p>
-<button onclick="addToCart('Blood Pressure Monitor',149)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Cough Syrup</h3>
-<p class="price">22 ﷼</p>
-<button onclick="addToCart('Cough Syrup',22)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Nasal Spray</h3>
-<p class="price">28 ﷼</p>
-<button onclick="addToCart('Nasal Spray',28)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Bandage Pack</h3>
-<p class="price">10 ﷼</p>
-<button onclick="addToCart('Bandage Pack',10)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Paracetamol</h3>
-<p class="price">14 ﷼</p>
-<button onclick="addToCart('Paracetamol',14)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Ibuprofen</h3>
-<p class="price">19 ﷼</p>
-<button onclick="addToCart('Ibuprofen',19)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Vitamin B12</h3>
-<p class="price">42 ﷼</p>
-<button onclick="addToCart('Vitamin B12',42)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>Eye Drops</h3>
-<p class="price">24 ﷼</p>
-<button onclick="addToCart('Eye Drops',24)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<h3>First Aid Kit</h3>
-<p class="price">55 ﷼</p>
-<button onclick="addToCart('First Aid Kit',55)">أضف للسلة</button>
-</div>
-<div class="card">
-<img src="https://via.placeholder.com/300x200">
-<h3>Panadol</h3>
-<p class="price">12 ﷼</p>
-<button onclick="addToCart('Panadol',12)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<img src="https://via.placeholder.com/300x200">
-<h3>Vitamin C</h3>
-<p class="price">35 ﷼</p>
-<button onclick="addToCart('Vitamin C',35)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<img src="https://via.placeholder.com/300x200">
-<h3>Omega 3</h3>
-<p class="price">89 ﷼</p>
-<button onclick="addToCart('Omega 3',89)">أضف للسلة</button>
-</div>
-
-<div class="card">
-<img src="https://via.placeholder.com/300x200">
-<h3>Thermometer</h3>
-<p class="price">25 ﷼</p>
-<button onclick="addToCart('Thermometer',25)">أضف للسلة</button>
-</div>
-
+<!-- السلة -->
+<div class="cart">
+    🛒 السلة:
+    <span id="cartCount">0</span>
+    <br><br>
+    <button onclick="openCart()">عرض السلة</button>
 </div>
 
 <div id="cartBox">
 
-<h2>سلة المشتريات</h2>
+    <h2>🛒 سلة المشتريات</h2>
 
-<ul id="cartItems"></ul>
+    <ul id="cartItems"></ul>
 
-<h3>
-الإجمالي:
-<span id="total">0</span>
-﷼
-</h3>
+    <h3>
+        الإجمالي:
+        <span id="total">0</span> ﷼
+    </h3>
 
-<br>
-
-<button onclick="checkout()">
-📱 طلب عبر واتساب
-</button>
-
-<button onclick="closeCart()">
-إغلاق
-</button>
+    <div class="cart-actions">
+        <button onclick="checkout()">📱 طلب عبر واتساب</button>
+        <button onclick="closeCart()">إغلاق</button>
+    </div>
 
 </div>
 
+<footer>
+    <h2>💊 Innova Pharmacy</h2>
+    <p>شكراً لزيارتكم ❤️</p>
+    <br>
+    <p>صحتك أولويتنا</p>
+</footer>
+
 <script>
 
-let count = 0;
-let total = 0;
+// ==================================
+// المنتجات
+// ==================================
+
+const products = [
+
+    // الأدوية
+    {name:"Panadol",price:12,category:"medicine",icon:"💊"},
+    {name:"Panadol Extra",price:18,category:"medicine",icon:"💊"},
+    {name:"Paracetamol",price:14,category:"medicine",icon:"💊"},
+    {name:"Ibuprofen",price:19,category:"medicine",icon:"💊"},
+    {name:"Cough Syrup",price:22,category:"medicine",icon:"🧴"},
+    {name:"Nasal Spray",price:28,category:"medicine",icon:"👃"},
+    {name:"Strepsils",price:20,category:"medicine",icon:"💊"},
+    {name:"Antacid Tablets",price:16,category:"medicine",icon:"💊"},
+    {name:"ORS Sachets",price:10,category:"medicine",icon:"💧"},
+    {name:"Calamine Lotion",price:24,category:"medicine",icon:"🧴"},
+    {name:"Throat Lozenges",price:15,category:"medicine",icon:"💊"},
+    {name:"Antiseptic Solution",price:18,category:"medicine",icon:"🧴"},
+    {name:"Saline Nasal Drops",price:14,category:"medicine",icon:"💧"},
+    {name:"Gauze Dressing",price:12,category:"medicine",icon:"🩹"},
+    {name:"Eye Drops",price:24,category:"medicine",icon:"👁️"},
+
+    // الفيتامينات
+    {name:"Vitamin C",price:35,category:"vitamins",icon:"💪"},
+    {name:"Omega 3",price:89,category:"vitamins",icon:"💊"},
+    {name:"Vitamin D3",price:45,category:"vitamins",icon:"☀️"},
+    {name:"Centrum",price:65,category:"vitamins",icon:"💊"},
+    {name:"Calcium Tablets",price:38,category:"vitamins",icon:"💪"},
+    {name:"Omega 3 Plus",price:95,category:"vitamins",icon:"💊"},
+    {name:"Vitamin B12",price:42,category:"vitamins",icon:"💊"},
+    {name:"Zinc Tablets",price:30,category:"vitamins",icon:"💊"},
+    {name:"Magnesium",price:48,category:"vitamins",icon:"💊"},
+    {name:"Multivitamin",price:55,category:"vitamins",icon:"💪"},
+    {name:"Vitamin E",price:40,category:"vitamins",icon:"💊"},
+    {name:"Folic Acid",price:25,category:"vitamins",icon:"💊"},
+    {name:"Iron Supplement",price:32,category:"vitamins",icon:"💊"},
+    {name:"Vitamin B Complex",price:37,category:"vitamins",icon:"💊"},
+
+    // الأجهزة الطبية
+    {name:"Thermometer",price:25,category:"devices",icon:"🌡️"},
+    {name:"Digital Thermometer",price:39,category:"devices",icon:"🌡️"},
+    {name:"Blood Pressure Monitor",price:149,category:"devices",icon:"🩺"},
+    {name:"First Aid Kit",price:55,category:"devices",icon:"🩹"},
+    {name:"Bandage Pack",price:10,category:"devices",icon:"🩹"},
+    {name:"Pulse Oximeter",price:75,category:"devices",icon:"🩺"},
+    {name:"Nebulizer",price:125,category:"devices",icon:"💨"},
+    {name:"Digital Scale",price:85,category:"devices",icon:"⚖️"},
+    {name:"Medical Gloves",price:20,category:"devices",icon:"🧤"},
+    {name:"Medical Mask Box",price:25,category:"devices",icon:"😷"},
+    {name:"Hot Water Bag",price:30,category:"devices",icon:"♨️"},
+    {name:"Ice Pack",price:25,category:"devices",icon:"🧊"},
+
+    // العناية الشخصية
+    {name:"Face Mask",price:12,category:"care",icon:"😷"},
+    {name:"Hand Sanitizer",price:15,category:"care",icon:"🧴"},
+    {name:"Moisturizing Cream",price:29,category:"care",icon:"🧴"},
+    {name:"Body Lotion",price:32,category:"care",icon:"🧴"},
+    {name:"Sunscreen SPF50",price:65,category:"care",icon:"☀️"},
+    {name:"Face Wash",price:35,category:"care",icon:"🧼"},
+    {name:"Shampoo",price:28,category:"care",icon:"🧴"},
+    {name:"Conditioner",price:30,category:"care",icon:"🧴"},
+    {name:"Toothpaste",price:15,category:"care",icon:"🪥"},
+    {name:"Toothbrush",price:10,category:"care",icon:"🪥"},
+    {name:"Lip Balm",price:18,category:"care",icon:"💄"},
+    {name:"Hair Oil",price:27,category:"care",icon:"🧴"},
+    {name:"Body Wash",price:26,category:"care",icon:"🧼"},
+    {name:"Deodorant",price:24,category:"care",icon:"🧴"},
+    {name:"Cotton Pads",price:12,category:"care",icon:"🧻"},
+
+    // الأطفال
+    {name:"Baby Shampoo",price:25,category:"kids",icon:"🧴"},
+    {name:"Baby Lotion",price:30,category:"kids",icon:"👶"},
+    {name:"Baby Wipes",price:15,category:"kids",icon:"🧻"},
+    {name:"Baby Diapers",price:45,category:"kids",icon:"🍼"},
+    {name:"Baby Oil",price:22,category:"kids",icon:"🧴"},
+    {name:"Baby Powder",price:18,category:"kids",icon:"👶"},
+    {name:"Baby Bottle",price:28,category:"kids",icon:"🍼"},
+    {name:"Baby Pacifier",price:15,category:"kids",icon:"🍼"},
+    {name:"Baby Bath Wash",price:26,category:"kids",icon:"🛁"},
+    {name:"Baby Nail Clipper",price:12,category:"kids",icon:"✂️"},
+    {name:"Baby Wet Tissue",price:17,category:"kids",icon:"🧻"},
+    {name:"Baby Feeding Spoon",price:14,category:"kids",icon:"🥄"}
+
+];
+
+// ==================================
+// عرض المنتجات
+// ==================================
+
+let currentCategory = "all";
 let cartItems = [];
 
-function addToCart(name,price){
+const productsContainer = document.getElementById("products");
 
-count++;
-total += price;
+function renderProducts() {
 
-cartItems.push(name);
+    productsContainer.innerHTML = "";
 
-document.getElementById("cartCount").innerText = count;
+    let searchValue = document
+        .getElementById("search")
+        .value.toLowerCase()
+        .trim();
 
-}
+    let filtered = products.filter(product => {
 
-function openCart(){
+        let categoryMatch =
+            currentCategory === "all" ||
+            product.category === currentCategory;
 
-let list =
-document.getElementById("cartItems");
+        let searchMatch =
+            product.name.toLowerCase().includes(searchValue);
 
-list.innerHTML = "";
+        return categoryMatch && searchMatch;
+    });
 
-cartItems.forEach(function(item){
+    if(filtered.length === 0) {
+        productsContainer.innerHTML =
+            '<div class="empty">لا توجد منتجات بهذا الاسم 😔</div>';
+        return;
+    }
 
-list.innerHTML +=
-"<li>"+item+"</li>";
+    filtered.forEach(product => {
 
-});
+        let card = document.createElement("div");
+        card.className = "card";
 
-document.getElementById("total").innerText =
-total;
+        card.innerHTML = `
+            <div class="product-icon">${product.icon}</div>
+            <h3>${product.name}</h3>
+            <p>منتج من Innova Pharmacy</p>
+            <p class="price">${product.price} ﷼</p>
+            <button>أضف للسلة 🛒</button>
+        `;
 
-document.getElementById("cartBox").style.display =
-"block";
+        card.querySelector("button").addEventListener("click", () => {
+            addToCart(product.name, product.price);
+        });
 
-}
-
-function closeCart(){
-
-document.getElementById("cartBox").style.display =
-"none";
-
-}
-
-function checkout(){
-
-if(cartItems.length===0){
-
-alert("السلة فارغة");
-
-return;
-
-}
-
-let message =
-"🛒 طلب جديد من Innova Pharmacy\n\n";
-
-cartItems.forEach(function(item){
-
-message += "• " + item + "\n";
-
-});
-
-message +=
-"\n💰 الإجمالي: " + total + " ﷼";
-
-window.open(
-"https://wa.me/201016528369?text=" +
-encodeURIComponent(message),
-"_blank"
-);
+        productsContainer.appendChild(card);
+    });
 
 }
 
-document.getElementById("search")
-.addEventListener("keyup",function(){
+// ==================================
+// أسماء الأقسام
+// ==================================
 
-let value =
-this.value.toLowerCase();
+const categoryNames = {
+    all:"🛍️ جميع المنتجات",
+    medicine:"💊 الأدوية",
+    vitamins:"💪 الفيتامينات",
+    devices:"💉 الأجهزة الطبية",
+    care:"🧴 العناية الشخصية",
+    kids:"👶 منتجات الأطفال"
+};
 
-let cards =
-document.querySelectorAll(".card");
+// ==================================
+// القائمة الجانبية
+// ==================================
 
-cards.forEach(function(card){
+function openMenu() {
+    document.getElementById("sidebar").classList.add("open");
+    document.getElementById("overlay").classList.add("show");
+}
 
-card.style.display =
-card.innerText
-.toLowerCase()
-.includes(value)
-? "block"
-: "none";
+function closeMenu() {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+}
 
-});
+function showCategory(category, button) {
 
-});
+    currentCategory = category;
+
+    document.getElementById("search").value = "";
+
+    document.getElementById("categoryTitle").innerText =
+        categoryNames[category];
+
+    document.querySelectorAll(".sidebar button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    renderProducts();
+    closeMenu();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+// ==================================
+// البحث
+// ==================================
+
+document.getElementById("search").addEventListener("input", renderProducts);
+
+// ==================================
+// السلة
+// ==================================
+
+function addToCart(name, price) {
+
+    let existing = cartItems.find(item => item.name === name);
+
+    if(existing) {
+        existing.quantity++;
+    } else {
+        cartItems.push({
+            name:name,
+            price:price,
+            quantity:1
+        });
+    }
+
+    updateCart();
+
+}
+
+function updateCart() {
+
+    let count = cartItems.reduce(
+        (sum,item) => sum + item.quantity,0
+    );
+
+    document.getElementById("cartCount").innerText = count;
+
+}
+
+function openCart() {
+
+    let list = document.getElementById("cartItems");
+    let total = 0;
+
+    list.innerHTML = "";
+
+    if(cartItems.length === 0) {
+        list.innerHTML = "<li>السلة فارغة</li>";
+    }
+
+    cartItems.forEach((item,index) => {
+
+        let subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        let li = document.createElement("li");
+
+        li.innerHTML = `
+            <strong>${item.name}</strong>
+            <br>
+            السعر: ${item.price} ﷼
+            <br>
+            الكمية: ${item.quantity}
+            <br>
+            <button onclick="changeQuantity(${index},1)">+</button>
+            <button onclick="changeQuantity(${index},-1)">-</button>
+            <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
+        `;
+
+        list.appendChild(li);
+
+    });
+
+    document.getElementById("total").innerText = total;
+
+    document.getElementById("cartBox").style.display = "block";
+
+}
+
+function changeQuantity(index,amount) {
+
+    cartItems[index].quantity += amount;
+
+    if(cartItems[index].quantity <= 0) {
+        cartItems.splice(index,1);
+    }
+
+    updateCart();
+    openCart();
+
+}
+
+function removeItem(index) {
+
+    cartItems.splice(index,1);
+
+    updateCart();
+    openCart();
+
+}
+
+function closeCart() {
+    document.getElementById("cartBox").style.display = "none";
+}
+
+// ==================================
+// الطلب عبر واتساب
+// ==================================
+
+function checkout() {
+
+    if(cartItems.length === 0) {
+        alert("السلة فارغة");
+        return;
+    }
+
+    let message = "🛒 طلب جديد من Innova Pharmacy\n\n";
+    let total = 0;
+
+    cartItems.forEach(item => {
+
+        let subtotal = item.price * item.quantity;
+
+        total += subtotal;
+
+        message +=
+            "• " + item.name +
+            " × " + item.quantity +
+            " = " + subtotal + " ﷼\n";
+
+    });
+
+    message += "\n💰 الإجمالي: " + total + " ﷼";
+
+    window.open(
+        "https://wa.me/201016528369?text=" +
+        encodeURIComponent(message),
+        "_blank"
+    );
+
+}
+
+// تشغيل الموقع
+renderProducts();
 
 </script>
 
